@@ -1,0 +1,26 @@
+<div class="py-1 bg-dark">
+    <nav class="container d-flex flex-column flex-md-row justify-content-between">
+        <a href="/" class="py-2 text-white">{{ TITLE }}</a>
+        <a href="/orders/" class="py-2 d-done d-md-inline-block text-white">Orders</a>
+        <a href="/profile/" class="py-2 d-done d-md-inline-block text-white">Profile</a>
+        <a href="/account/" class="py-2 d-done d-md-inline-block text-white">Account</a>
+        <a href="/cart/" class="py-2 d-done d-md-inline-block text-white">
+            Cart
+            {% if request.session.cart and request.session.cart.items|length != 0 %}
+            <span class="badge badge-danger">
+                {{request.session.cart.items|length}}
+            {% endif %}
+            </span>
+        </a>
+        {% if user.is_authenticated %}
+        <!-- <a href="/logout/" class="py-2 d-none d-md-inline-block text-white">Logout</a> -->
+        <form action="/logout/" method="POST" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link py-2 d-none d-md-inline-block text-white">Logout</button>
+        </form>
+        {% else %}
+        <a href="/login/" class="py-2 d-none d-md-inline-block text-white">Login</a>
+        <a href="/signup/" class="py-2 d-none d-md-inline-block text-white">SignUp</a>
+        {% endif %}
+    </nav>
+</div>
